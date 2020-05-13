@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_team, only: %i[show edit update destroy]
+  before_action :require_owner_id, only: %i[edit update]
 
   def index
     @teams = Team.all
@@ -55,5 +56,9 @@ class TeamsController < ApplicationController
 
   def team_params
     params.fetch(:team, {}).permit %i[name icon icon_cache owner_id keep_team_id]
+  end
+
+  def require_owner_id
+    redirect_to @team, notice: I18n.t('views.messages.cannot_update_team_except_leader') unless current_user.id == Team.find(current_user.keep_team_id).owner_id
   end
 end
