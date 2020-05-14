@@ -1,5 +1,7 @@
 class AgendasController < ApplicationController
   before_action :set_agenda, only: %i[destroy]
+  before_action :require_owner_id_or_agenda_creater, only: %i[destroy]
+
 
   def index
     @agendas = Agenda.all
@@ -35,5 +37,11 @@ class AgendasController < ApplicationController
 
   def agenda_params
     params.fetch(:agenda, {}).permit %i[title description]
+  end
+
+  def require_owner_id_or_agenda_creater
+    unless current_user.id == Team.find(current_user.keep_team_id).owner_id || current_user.id == Agenda.find_by(id: params[:id]).user_id
+      redirect_to dashboard_url, notice: I18n.t('views.messages.cannot_destroy_agenda')
+    end
   end
 end
