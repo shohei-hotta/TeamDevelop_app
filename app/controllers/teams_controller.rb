@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_team, only: %i[show edit update destroy]
+  before_action :set_team, only: %i[show edit update destroy authority]
 
   def index
     @teams = Team.all
@@ -45,6 +45,15 @@ class TeamsController < ApplicationController
 
   def dashboard
     @team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : current_user.teams.first
+  end
+
+  def authority
+    if @team.update(team_params)
+      redirect_to @team, notice: I18n.t('views.messages.transfer_authority')
+    else
+      flash.now[:error] = I18n.t('views.messages.failed_to_transfer_authority')
+      render :show
+    end
   end
 
   private

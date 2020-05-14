@@ -219,6 +219,8 @@ ja:
       failed_to_save_team: '保存に失敗しました、、'
       update_team: 'チーム更新に成功しました！'
       delete_team: 'チーム削除に成功しました！'
+      transfer_authority: 'チームリーダーを変更しました！'
+      failed_to_transfer_authority: 'チームリーダーの変更に失敗しました、、'
       update_profile: 'プロフィールを編集しました！'
       complete_registration: '登録完了'
       edit_article: '記事を編集する'
@@ -257,6 +259,7 @@ ja:
       delete: '削除'
       create: '作成'
       invite: '招待'
+      transfer_authority: '権限移動'
     top:
       line1: 'このアプリケーションは、チームごと、議題ごとに別れて'
       line2: '特定のイシュー（議題）をメンバーで見やすく共有するためのアプリケーションです'
