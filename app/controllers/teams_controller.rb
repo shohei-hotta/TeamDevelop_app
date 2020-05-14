@@ -49,6 +49,7 @@ class TeamsController < ApplicationController
 
   def authority
     if @team.update(team_params)
+      ToBeLeaderMailer.to_be_leader_mail(@team).deliver
       redirect_to @team, notice: I18n.t('views.messages.transfer_authority')
     else
       flash.now[:error] = I18n.t('views.messages.failed_to_transfer_authority')
