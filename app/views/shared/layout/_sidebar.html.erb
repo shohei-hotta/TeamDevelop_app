@@ -33,9 +33,11 @@
             <a class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
                 <%= agenda.title %>
-                <object>
-                  <%= link_to "#{I18n.t('views.button.delete')}", agenda_path(agenda), method: :delete, class: "btn btn-sm btn-danger ml-5" %>
-                </object>
+                <% if current_user.id == agenda.team.owner_id || current_user.id == agenda.user_id %>
+                  <object>
+                    <%= link_to "#{I18n.t('views.button.delete')}", agenda_path(agenda), method: :delete, class: "btn btn-sm btn-danger ml-5" %>
+                  </object>
+                <% end %>
                 <i class="right fa fa-angle-left"></i>
             </a>
             <ul class="nav nav-treeview" style="display: block;">
